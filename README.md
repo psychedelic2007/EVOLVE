@@ -1,9 +1,9 @@
+<img src="logo.jpg"  alt="Evolve Logo" height="200">
+
 # EVOLVE: A webserver to explore viral evolution to better distinguish a "Variant Under Monitoring (VUM)" from multiple sequence data learning
 Satyam Sangeet<sup>12</sup>, Anushree Sinha<sup>1</sup>, Madhav B. Nair<sup>1</sup>, Arpita Mahata<sup>1</sup>, Raju Sarkar<sup>1</sup>, Susmita Roy<sup>1</sup>
 - <sup>1</sup>Department of Chemical Sciences, Indian Institute of Science Education and Research, Kolkata, India
 - <sup>2</sup>School of Physics, The University of Sydney, NSW, Australia
-
-<img src="logo.jpg"  alt="Evolve Logo" height="200">
 
 ***
 Welcome to the EVOLVE repository! This repository contains the relevant data related to teh EVOLVE webserver. Below is the architecture of the repository, along with a description of the different directories and their contents.
