@@ -13,7 +13,7 @@ Welcome to the EVOLVE repository! This repository contains the relevant data rel
 # Models
 This folder contains all the models that have been used or developed during the project. It is divided into two subfolders:
 - Pre-trained models: This contains four models that have been pre-trained on specific datasets:
-- - Omicron: A model trained for the Omicron variant.
+  - Omicron: A model trained for the Omicron variant.
 Influenza: A model trained for Influenza virus data.
 CTV: A model focused on Citrus Tristeza Virus (CTV).
 Xanthomonas: A model for the Xanthomonas genus of bacteria.
