@@ -35,4 +35,7 @@ More details are provided in the respetive directory
 - This folder holds the training datasets used for the models listed above.
 - Each model has a corresponding dataset, which has been used to train the model from scratch or fine-tune it during the transfer learning process.
 
+# Example Files
+- This folder consists of example files that one can use to test out teh functionality of the server.
+- These files also serve to show how the input data has to be prepared and what will be the architecture of the files.
 ***
