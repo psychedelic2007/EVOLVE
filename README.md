@@ -6,5 +6,10 @@
 Welcome to the EVOLVE repository! This repository contains the relevant data related to teh EVOLVE webserver. Below is the architecture of the repository, along with a description of the different directories and their contents.
 
 # Local Calculation
-This folder contains Python code that performs specific analyses on local machines. These analyses are computationally expensive or require resources that are not available on the web server. The scripts here are optimized for local execution.
+- This folder contains Python code that performs specific analyses on local machines. These analyses are computationally expensive or require resources that are not available on the web server. 
+- The scripts here are optimized for local execution.
+- The python scripts are annotated to provide instructions in case of any doubt.
 
+# Models
+This folder contains all the models that have been used or developed during the project. It is divided into two subfolders:
+  ## Pre - Trained Models
