@@ -14,7 +14,22 @@ Welcome to the EVOLVE repository! This repository contains the relevant data rel
 This folder contains all the models that have been used or developed during the project. It is divided into two subfolders:
 - Pre-trained models: This contains four models that have been pre-trained on specific datasets:
   - Omicron: A model trained for the Omicron variant.
-Influenza: A model trained for Influenza virus data.
-CTV: A model focused on Citrus Tristeza Virus (CTV).
-Xanthomonas: A model for the Xanthomonas genus of bacteria.
+  - Influenza: A model trained for Influenza virus data.
+  - CTV: A model focused on Citrus Tristeza Virus (CTV).
+  - Xanthomonas: A model for the Xanthomonas genus of bacteria.
 
+- Transfer learned models: This subfolder contains models that have been further trained (transfer learning) on specific datasets. Currently, it includes:
+  - Dengue Virus Model: A model fine-tuned for detecting or predicting Dengue virus characteristics using transfer learning techniques.
+
+More details are provided in the respetive directory
+
+# Supplementary
+- This folder stores the results of various tests and model training experiments.
+- These results correspond to different test and train data splits, showcasing the performance and accuracy of the models over a range of training sizes.
+- It includes performance metrics, validation results, and any additional supplementary information.
+
+# Training Data
+- This folder holds the training datasets used for the models listed above.
+- Each model has a corresponding dataset, which has been used to train the model from scratch or fine-tune it during the transfer learning process.
+
+***
