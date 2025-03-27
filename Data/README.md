@@ -1,7 +1,7 @@
-# Genomic Sequences Repository
+# Protein Sequences Repository
 
 ## Overview
-This repository contains raw genomic sequences for multiple species, organized into separate directories. Each directory corresponds to a specific virus or bacterial species and contains raw sequence data for further analysis.
+This repository contains raw and preprocessed protein sequences for multiple species, organized into separate directories. Each directory corresponds to a specific virus or bacterial species and contains raw sequence data for further analysis.
 
 ## Directory Structure
 The repository is structured as follows:
