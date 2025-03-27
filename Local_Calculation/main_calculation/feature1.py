@@ -2,7 +2,6 @@ import os
 import csv
 import zipfile
 from typing import List, Tuple
-
 import numpy as np
 from tqdm import tqdm
 from Bio import SeqIO
@@ -13,7 +12,6 @@ class Feature1Calculator:
         """
         Initialize the Feature1Calculator with amino acid lists.
         """
-        # Predefined list of amino acids
         self.aa_list = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y']
         self.aa_pair = [f'{i}{j}' for i in self.aa_list for j in self.aa_list]
 
@@ -63,10 +61,8 @@ class Feature1Calculator:
         Returns:
             str: Path to the generated zip file
         """
-        # Ensure output directory exists
+
         os.makedirs(output_dir, exist_ok=True)
-        
-        # Generate output zip path
         output_zip_path = os.path.join(output_dir, 'feature1.zip')
         
         # Read sequences
@@ -78,12 +74,9 @@ class Feature1Calculator:
         
         # Process sequences
         with zipfile.ZipFile(output_zip_path, 'w') as output_zip:
-            # Use tqdm for progress tracking
             for seq in tqdm(sequences, desc="Processing Sequences", unit="sequence"):
-                # Convert sequence to string
                 aa = str(seq.seq)
                 
-                # Calculate F1 values
                 f1_values = self.calculate_f1_values(aa)
                 
                 # Create sanitized filename for each sequence
@@ -98,10 +91,7 @@ class Feature1Calculator:
                     for i in range(len(aa)):
                         writer.writerow([aa[i], f1_values[i]])
                 
-                # Add CSV file to zip archive
                 output_zip.write(csv_path, arcname=csv_filename)
-                
-                # Remove temporary CSV file
                 os.remove(csv_path)
         
         return output_zip_path
@@ -110,17 +100,14 @@ def main():
     """
     Main function to run the Feature 1 calculation script.
     """
-    # Prompt user for input file
     while True:
         input_file = input("Enter the path to your FASTA file: ").strip()
         
-        # Check if file exists
         if os.path.exists(input_file):
             break
         else:
             print("File not found. Please enter a valid file path.")
     
-    # Prompt for output directory (optional)
     output_dir = input("Enter output directory (press Enter for current directory): ").strip()
     output_dir = output_dir if output_dir else '.'
     
@@ -128,9 +115,7 @@ def main():
     calculator = Feature1Calculator()
     
     try:
-        # Process sequences
         output_zip = calculator.process_sequences(input_file, output_dir)
-        
         if output_zip:
             print(f"\nProcessing complete. Output zip file created: {output_zip}")
         else:
