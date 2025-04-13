@@ -172,7 +172,7 @@ class AdvancedModelTrainer:
         history = self.model.fit(
             X_train, y_train,
             validation_data=(X_val, y_val),
-            epochs=100,
+            epochs=10,
             batch_size=32,
             callbacks=[early_stopping, reduce_lr],
             verbose=1
@@ -180,23 +180,71 @@ class AdvancedModelTrainer:
         return history
     
     def cross_validate(self, X, y, n_splits=5):
-        """
-        Perform cross-validation
+      """
+      Perform cross-validation manually
+    
+      :param X: Input features
+      :param y: Target labels
+      :param n_splits: Number of cross-validation splits
+      :return: Cross-validation scores
+      """
+      # Prepare cross-validation
+      kf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=self.random_state)
+    
+      cv_scores = []
+      for fold, (train_idx, val_idx) in enumerate(kf.split(X, y)):
+        self.logger.info(f"Training fold {fold+1}/{n_splits}")
         
-        :param X: Input features
-        :param y: Target labels
-        :param n_splits: Number of cross-validation splits
-        :return: Cross-validation scores
-        """
-        # Prepare cross-validation
-        kf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=self.random_state)
+        # Split data for this fold
+        X_train_fold, X_val_fold = X[train_idx], X[val_idx]
+        y_train_fold, y_val_fold = y[train_idx], y[val_idx]
         
-        # Perform cross-validation
-        cv_scores = cross_val_score(self.model, X, y, cv=kf, scoring='accuracy')
-        self.logger.info(f"Cross-validation scores: {cv_scores}")
-        self.logger.info(f"Mean CV Accuracy: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
+        # Scale features
+        scaler = StandardScaler()
+        X_train_fold = scaler.fit_transform(X_train_fold)
+        X_val_fold = scaler.transform(X_val_fold)
         
-        return cv_scores
+        # Clip extreme values
+        X_train_fold = np.clip(X_train_fold, -5, 5)
+        X_val_fold = np.clip(X_val_fold, -5, 5)
+        
+        # Create and train a new model for this fold
+        fold_model = self.create_model(input_shape=(X_train_fold.shape[1],))
+        
+        # Early stopping and LR reduction for each fold
+        early_stopping = EarlyStopping(
+            monitor='val_loss', 
+            patience=5,  # Reduced for CV
+            restore_best_weights=True
+        )
+        
+        reduce_lr = ReduceLROnPlateau(
+            monitor='val_loss', 
+            factor=0.2, 
+            patience=3,  # Reduced for CV
+            min_lr=1e-6
+        )
+        
+        # Train
+        fold_model.fit(
+            X_train_fold, y_train_fold,
+            validation_data=(X_val_fold, y_val_fold),
+            epochs=50,  # Reduced for CV
+            batch_size=32,
+            callbacks=[early_stopping, reduce_lr],
+            verbose=1
+        )
+        
+        # Evaluate
+        _, accuracy = fold_model.evaluate(X_val_fold, y_val_fold, verbose=0)
+        cv_scores.append(accuracy)
+        self.logger.info(f"Fold {fold+1}/{n_splits} - Accuracy: {accuracy:.4f}")
+    
+      cv_scores = np.array(cv_scores)
+      self.logger.info(f"Cross-validation scores: {cv_scores}")
+      self.logger.info(f"Mean CV Accuracy: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
+    
+      return cv_scores
     
     def save_model(self, save_path):
         """
