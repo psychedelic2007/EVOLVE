@@ -2,9 +2,9 @@ import os
 import pandas as pd
 from tqdm import tqdm
 
-feature1_folder = r"C:\Users\satya\Downloads\feature1"
-feature3_folder = r"C:\Users\satya\Downloads\feature3"
-output_folder   = r"C:\Users\satya\Downloads\output"
+feature1_folder = "path\to\feature1\folder"
+feature3_folder = "path\to\feature2\folder"
+output_folder   = "path\to\output\folder"
 
 os.makedirs(output_folder, exist_ok=True)
 
